@@ -1,0 +1,13 @@
+Module: Test
+Controller: User
+Action: testform
+<?php
+/** @var \Zend\View\Renderer\PhpRenderer $this */
+$form = $this->form;
+$form->setAttribute('action', $this->url(null,['controller' => 'user','action' => 'testform']));
+$form->prepare();
+echo $this->form()->openTag($form);
+
+echo $this->formCollection($form);
+
+echo $this->form()->closeTag();
