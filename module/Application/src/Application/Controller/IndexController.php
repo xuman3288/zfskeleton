@@ -41,7 +41,7 @@ class IndexController extends AbstractActionController
         //var_dump($this->getServiceLocator()->get('Config'));//autoload中的配置
         $now = time();
         $client = new Client();
-        $client->open(Client::SANDBOX_URI, BASEDIR .'\data\5010_dev.pem');
+        $client->open(Client::SANDBOX_URI, BASEDIR .'\data\5016_dev.pem');
         $message = new Message();
         $message->setId($now);
         $message->setToken('sss');
@@ -149,10 +149,10 @@ class IndexController extends AbstractActionController
             )
         );
 
-// Create the object-oriented wrapper using the configuration data
+        // Create the object-oriented wrapper using the configuration data
         $config = new Config($configArray);
 
-// Print a configuration datum (results in 'www.example.com')
+        // Print a configuration datum (results in 'www.example.com')
         //echo $config->webhost;
         //echo $config->database->get('params')->get('host');
         echo $config->database->params->dbname;

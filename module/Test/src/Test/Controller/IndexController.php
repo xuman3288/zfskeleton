@@ -2,16 +2,21 @@
 
 namespace Test\Controller;
 
-use Test\Model\TestTable;
 use Zend\Crypt\PublicKey\Rsa;
 use Zend\Crypt\PublicKey\RsaOptions;
+use Zend\Mail\Transport\Sendmail;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Mvc\MvcEvent;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
-
+    public function onDispatch(MvcEvent $e)
+    {
+        $this->layout('layout/test');
+        return parent::onDispatch($e);
+    }
     public function indexAction()
     {
         /** @var \Test\Model\TestTable $testTable */
@@ -77,6 +82,151 @@ class IndexController extends AbstractActionController
         echo $rsa->getOpensslErrorString();
         var_dump($verify);exit;
     }
+    public function testMailAction() {
+        $mailSender = new Sendmail();
+    }
 
+    public function TestKendoAction()
+    {
+        $dl = new \Kendo\UI\DropDownList('asdf');
+        $dl->dataTextField('text')
+            ->dataValueField('value')
+            ->attr('style', 'width:250px')
+            ->dataSource([
+                    ['text' => 'ssss','value' => 1],
+                    ['text' => 'ssss','value' => 1],
+                    ['text' => 'ssss','value' => 1],
+                    ['text' => 'ssss','value' => 1],
+                    ['text' => 'ssss','value' => 1],
+                ]);
+        $panelbar = new \Kendo\UI\PanelBar('panelbar');
+
+        $today = new \Kendo\UI\PanelBarItem("Today");
+        $today->expanded(true)
+            ->addItem(
+                new \Kendo\UI\PanelBarItem("Jane King"),
+                new \Kendo\UI\PanelBarItem("Bob Fuller"),
+                new \Kendo\UI\PanelBarItem("Lynda Kallahan"),
+                new \Kendo\UI\PanelBarItem("Matt Sutnar")
+            );
+        $panelbar->addItem($today);
+
+        $yesterday = new \Kendo\UI\PanelBarItem("Today");
+        $yesterday
+            ->addItem(
+                new \Kendo\UI\PanelBarItem("Stewart "),
+                new \Kendo\UI\PanelBarItem("Jane King"),
+                new \Kendo\UI\PanelBarItem("Steven"),
+                new \Kendo\UI\PanelBarItem("Ken Stone")
+            );
+
+        $panelbar->addItem($yesterday);
+
+        $wednesday = new \Kendo\UI\PanelBarItem("Wednesday, February 01, 2012");
+        $wednesday->addItem(
+            new \Kendo\UI\PanelBarItem("Jane King"),
+            new \Kendo\UI\PanelBarItem("Lynda Kallahan"),
+            new \Kendo\UI\PanelBarItem("Todd "),
+            new \Kendo\UI\PanelBarItem("Bob Fuller")
+        );
+        $panelbar->addItem($wednesday);
+        $panelbar->expandMode("single");
+        $tuesday = new \Kendo\UI\PanelBarItem("Tuesday, January 31, 2012");
+        $tuesday->addItem(
+            new \Kendo\UI\PanelBarItem("Emily Davolio"),
+            new \Kendo\UI\PanelBarItem("Matt Sutnar"),
+            new \Kendo\UI\PanelBarItem("Bob Fuller"),
+            new \Kendo\UI\PanelBarItem("Jenn Heinlein")
+        );
+        $panelbar->addItem($tuesday);
+
+        $monday = new \Kendo\UI\PanelBarItem("Monday, January 30, 2012");
+        $monday->addItem(
+            new \Kendo\UI\PanelBarItem("Matt Sutnar"),
+            new \Kendo\UI\PanelBarItem("Joshua"),
+            new \Kendo\UI\PanelBarItem("Michael"),
+            new \Kendo\UI\PanelBarItem("Jenn Heinlein")
+        );
+        $panelbar->addItem($monday);
+
+        return new ViewModel(['dl' => $dl->render(), 'pb' => $panelbar->render()]);
+    }
+
+    public function getMenuAction()
+    {
+        $menu = array(
+
+            'wjtx' => array(
+                'text'     => '武极天下',
+                'index'    => 0,
+                'expanded' => true,
+                'items'    => array(
+                    0 => array(
+                        'text'  => '用户查询',
+                        'index' => 0,
+                        'url'   => './admin/user',
+                    ),
+                    1 => array(
+                        'text'  => '公告管理',
+                        'index' => 1,
+                        'url'   => './admin/role',
+                    ),
+                    2 => array(
+                        'text'  => '权限管理',
+                        'index' => 2,
+                        'url'   => './admin/permission',
+                    ),
+                    4 => array(
+                        'text'  => '个人信息',
+                        'index' => 4,
+                        'url'   => './ui/admin/index/self',
+                    ),
+                ),
+            ),
+            'sss' => array(
+                'text'     => '黑猫警长',
+                'index'    => 0,
+                'expanded' => true,
+                'items'    => array(
+                    0 => array(
+                        'text'  => '用户查询',
+                        'index' => 0,
+                        'url'   => './admin/user',
+                    ),
+                    1 => array(
+                        'text'  => '公告管理',
+                        'index' => 1,
+                        'url'   => './admin/role',
+                    ),
+                    2 => array(
+                        'text'  => '权限管理',
+                        'index' => 2,
+                        'url'   => './admin/permission',
+                    ),
+                    4 => array(
+                        'text'  => '个人信息',
+                        'index' => 4,
+                        'url'   => './ui/admin/index/self',
+                    ),
+                ),
+            ),
+        );
+        /** @var \Closure $menuFilter */
+        $menuFilter = null;
+        $menuFilter = function ($menu) use (&$menuFilter) {
+            foreach ($menu as $key => $item) {
+                if (isset($item['items'])) {
+                    $menu[$key]['items'] = array_values($menuFilter($item['items'], $user));
+                }
+            }
+            return $menu;
+        };
+
+        $menu = $menuFilter($menu);
+
+        return array(
+            'menu' => array_values($menu)
+        );
+    }
 }
 

@@ -9,11 +9,14 @@
     "homepage": "http://framework.zend.com/",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zendframework": "2.3.*",
+        "zendframework/zendframework": "2.4.*",
         "zendframework/zftool": "dev-master",
         "zendframework/zendservice-apple-apns": "dev-master",
         "facebook/php-sdk-v4" : "4.0.*",
-        "fly/gzfextra": "dev-master"
+        "fly/gzfextra": "dev-master",
+        "fly/kui": "dev-master",
+        "phpmailer/phpmailer": "~5.2",
+        "bshaffer/oauth2-server-php": "~1.7"
     }
 
 }

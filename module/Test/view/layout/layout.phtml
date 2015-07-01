@@ -17,15 +17,20 @@ $this->headTitle("Title");
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
                         ->prependStylesheet($this->basePath() . '/css/style.css')
                         ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+                        ->prependStylesheet($this->basePath() . '/kendoui/styles/kendo.common.min.css')
+                        ->prependStylesheet($this->basePath() . '/kendoui/styles/kendo.default.min.css')
                         ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
 
         <!-- Scripts -->
         <?php echo $this->headScript()
             ->prependFile($this->basePath() . '/js/bootstrap.min.js')
-            ->prependFile($this->basePath() . '/js/jquery.min.js')
+
+            ->prependFile($this->basePath() . '/kendoui/js/kendo.all.min.js')
             ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
             ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
-        ; ?>
+            ->prependFile($this->basePath() . '/js/formCreator.js')
+            ->prependFile($this->basePath() . '/js/jquery.min.js');
+        ?>
 
     </head>
     <body>
@@ -40,14 +45,12 @@ $this->headTitle("Title");
                     <a class="navbar-brand" href="<?php echo $this->url('test') ?>"><img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="Zend Framework 2"/>&nbsp;<?php echo $this->translate('测试') ?></a>
                 </div>
                 <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="<?php echo $this->url('test') ?>"><?php echo $this->translate('Test') ?></a></li>
-                        <li><a href="<?php echo $this->url('album') ?>"><?php echo $this->translate('Home') ?></a></li>
-                    </ul>
+                    <?php echo $this->navigation('navigation')->menu()->setMaxDepth(0)->setMinDepth(0)->setUlClass('nav navbar-nav'); ?>
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
         <div class="container">
+
             <?php echo $this->content; ?>
             <?php
                 /** @var Zend\View\Helper\HeadTitle $headTitle */

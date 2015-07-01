@@ -13,4 +13,4 @@ use Gzfextra\Db\TableGateway\AbstractTableGateway;
 class TestTable extends AbstractTableGateway
 {
 
-} 
+}
