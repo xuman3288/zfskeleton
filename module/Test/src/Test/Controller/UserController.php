@@ -197,9 +197,12 @@ class UserController extends AbstractActionController
                     ]
                 ],
                 [
-                    'type'  => 'input',
+                    'type'  => 'text',
                     'label' => '状态',
-                    'name'  => 'channel',
+                    'name'  => 'state',
+                    'config' => [
+
+                    ]
                 ]
             ]
         ]);
