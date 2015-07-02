@@ -9,11 +9,11 @@ var Former = {
     Kendos        : ['kendoDropDownList','kendoNumericTextBox'],
     inputs        : ['checkbox','text','password'],
     itemTemplate  : {
-        'kendoDropDownList' : '<input name="#name#">',
+        'kendoInput' : '<input name="#name#">',
         'input' : '<input name="#name#" type="#type#">',
         'button' : '<button class="k-button">提交</button>'
     },
-    create : function (data, $container) {
+    create : function (data, $container, callback) {
         var me = this;
         var form = $(me.formTamplate);
         var table = $(me.tableTemplate);
@@ -28,7 +28,7 @@ var Former = {
                 var element = $(template);
                 row.find(".formItem").append(element);
             } else {
-                var template = me.itemTemplate[n.type];
+                var template = me.itemTemplate.kendoInput;
                 template = template.replace('#name#', n.name);
                 var element = $(template);
                 row.find(".formItem").append(element);
@@ -49,7 +49,7 @@ var Former = {
                 '',
                 $(this).serialize(),
                 function(ret){
-
+                    callback && callback(ret);
                 },
                 'json'
             );
@@ -60,6 +60,8 @@ var Former = {
         } else {
             $('body').append(form);
         }
+
+
 
 
     }

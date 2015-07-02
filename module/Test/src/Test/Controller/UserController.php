@@ -165,6 +165,11 @@ class UserController extends AbstractActionController
 
     public function formConfigAction()
     {
+        if($this->request->isPost()) {
+
+            return new JsonModel(['code' => 0, 'data' => $_POST]);
+        }
+
         //form element
         return new ViewModel([
             'config' => [
@@ -203,7 +208,15 @@ class UserController extends AbstractActionController
                     'config' => [
 
                     ]
+                ],
+                [
+                'type'   => 'kendoDateTimePicker',
+                'label'  => '更新时间',
+                'name'   => 'datetime',
+                'config' => [
+                    'format' => "yyyy/MM/dd HH:mm:ss"
                 ]
+            ],
             ]
         ]);
     }
