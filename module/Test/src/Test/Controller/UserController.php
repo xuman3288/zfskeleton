@@ -150,22 +150,23 @@ class UserController extends AbstractActionController
 
     public function testServerAction()
     {
+        $rpc    = $this->params('api');
         $server = new Server();
-        $server->setClass('Test\Rpc\TestRpc');
+        $server->setClass("Test\\Rpc\\" . $rpc);
         $server->handle();
         exit;
     }
 
     public function testClientAction()
     {
-        $client = new Client('http://zf2-skeleton.localhost/test/user/test-server');
+        $client = new Client('http://zf2-skeleton.localhost/test/user/test-server/api/TestRpc');
         echo $client->call('test', [1, 2]);
         exit;
     }
 
     public function formConfigAction()
     {
-        if($this->request->isPost()) {
+        if ($this->request->isPost()) {
 
             return new JsonModel(['code' => 0, 'data' => $_POST]);
         }
@@ -202,21 +203,21 @@ class UserController extends AbstractActionController
                     ]
                 ],
                 [
-                    'type'  => 'text',
-                    'label' => '状态',
-                    'name'  => 'state',
+                    'type'   => 'text',
+                    'label'  => '状态',
+                    'name'   => 'state',
                     'config' => [
 
                     ]
                 ],
                 [
-                'type'   => 'kendoDateTimePicker',
-                'label'  => '更新时间',
-                'name'   => 'datetime',
-                'config' => [
-                    'format' => "yyyy/MM/dd HH:mm:ss"
-                ]
-            ],
+                    'type'   => 'kendoDateTimePicker',
+                    'label'  => '更新时间',
+                    'name'   => 'datetime',
+                    'config' => [
+                        'format' => "yyyy/MM/dd HH:mm:ss"
+                    ]
+                ],
             ]
         ]);
     }

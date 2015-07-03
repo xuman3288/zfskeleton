@@ -1,0 +1,42 @@
+<div>
+    <div class="k-header" id="g-top">GMT</div>
+</div>
+
+<div id="horizontal" style="overflow: hidden; height: 800px;">
+    <div id="left-pane"></div>
+    <div>
+        <div id="main">
+            <H1>Welcome!</H1>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.ajaxSetup({type: "POST"/*, dataType: "json"*/});
+        $("body").kendoSplitter({
+            orientation: "vertical",
+            panes: [
+                { collapsible: false, resizable: false, size: "60px"},
+                { collapsible: false, resizable: false }
+            ]
+        });
+
+        $("#horizontal").kendoSplitter({
+            panes: [
+                { collapsible: true, resizable: false, size: "220px"},
+                { collapsible: false }
+            ]
+        });
+        $.get('./test/index/init', function (r) {
+            $("#left-pane").kendoPanelBar({
+                dataSource: r.menu,
+                select: function (e) {
+                    e.preventDefault();
+                    var $item = $(e.item);
+                    $('#main').load($item.find('a').attr('href'));
+                }
+            });
+        });
+    });
+</script>

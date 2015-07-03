@@ -1,0 +1,38 @@
+<div id="vertical" style="min-height: 100%;">
+    <div id="top"></div>
+    <div id="content">
+        <div id="horizontal" style="height: 100%;">
+            <div id="left-pane"></div>
+            <div id="right-pane"></div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $("#vertical").kendoSplitter({
+            orientation: "vertical",
+            panes: [
+                { collapsible: false, size: "100px", resizable: false },
+                { collapsible: false}
+            ]
+        });
+        $("#horizontal").kendoSplitter({
+            panes: [
+                { size: '300px', collapsible: true, resizable: false},
+                { contentUrl: 'http://localhost'}
+            ]
+        });
+        $("#left-pane").kendoPanelBar({
+            expandMode: 'single',
+            dataSource: JSON.parse('<?=json_encode($menu)?>'),
+            select: function (e) {
+                e.preventDefault();
+                var $item = $(e.item);
+                //$('#main').load($item.find('a').attr('href'));
+            }
+        });
+    });
+</script>

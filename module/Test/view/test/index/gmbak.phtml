@@ -1,0 +1,30 @@
+<div role="group" class="k-pane k-scrollable" style="position: absolute; top: 0px; height: 60px; width: 1337px;">
+    <div class="k-header" id="g-top">
+
+    </div>
+</div>
+<div id="content">
+    <div id="horizontal">
+        <div id="left-pane"></div>
+        <div id="right-pane"></div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $("body").kendoSplitter({
+            orientation: "vertical",
+            panes: [
+                { collapsible: false, size: "100px", resizable: false },
+                { collapsible: false, size: '600px'}
+            ]
+        });
+        $("#horizontal").kendoSplitter({
+            panes: [
+                { size: '300px', collapsible: true, resizable: false},
+                { contentUrl: 'former/api/TestRpc'}
+            ]
+        });
+    });
+</script>

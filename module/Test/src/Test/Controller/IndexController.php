@@ -4,6 +4,7 @@ namespace Test\Controller;
 
 use Zend\Crypt\PublicKey\Rsa;
 use Zend\Crypt\PublicKey\RsaOptions;
+use Zend\Json\Server\Client;
 use Zend\Mail\Transport\Sendmail;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Mvc\MvcEvent;
@@ -227,6 +228,83 @@ class IndexController extends AbstractActionController
         return array(
             'menu' => array_values($menu)
         );
+    }
+
+    public function formerAction()
+    {
+        if ($this->request->isPost()) {
+            return new JsonModel(['code' => 0, 'data' => $_POST]);
+        }
+        $api = $this->params('api');
+        //var_dump($api);exit;
+        $client = new Client('http://zf2-skeleton.localhost/server/api/' . $api);
+        $config = $client->call('formConfig', []);
+        //var_dump($config);exit;
+        return new ViewModel(['config' => $config]);
+
+    }
+
+    public function gmAction()
+    {
+        $this->layout('layout/gm');
+        $menu = array(
+
+            'wjtx' => array(
+                'text'     => '武极天下',
+                'index'    => 0,
+                'expanded' => true,
+                'items'    => array(
+                    array(
+                        'text'  => '用户查询',
+                        'index' => 0,
+                        'url'   => './admin/user',
+                    ),
+                    array(
+                        'text'  => '公告管理',
+                        'index' => 1,
+                        'url'   => './admin/role',
+                    ),
+                    array(
+                        'text'  => '权限管理',
+                        'index' => 2,
+                        'url'   => './admin/permission',
+                    ),
+                    array(
+                        'text'  => '个人信息',
+                        'index' => 4,
+                        'url'   => './ui/admin/index/self',
+                    ),
+                ),
+            ),
+            'sss' => array(
+                'text'     => '黑猫警长',
+                'index'    => 0,
+                'expanded' => false,
+                'items'    => array(
+                    array(
+                        'text'  => '用户查询',
+                        'index' => 0,
+                        'url'   => './admin/user',
+                    ),
+                    array(
+                        'text'  => '公告管理',
+                        'index' => 1,
+                        'url'   => './admin/role',
+                    ),
+                    array(
+                        'text'  => '权限管理',
+                        'index' => 2,
+                        'url'   => './admin/permission',
+                    ),
+                    array(
+                        'text'  => '个人信息',
+                        'index' => 4,
+                        'url'   => './ui/admin/index/self',
+                    ),
+                ),
+            ),
+        );
+        return new ViewModel(['menu' => array_values($menu)]);
     }
 }
 

@@ -1,0 +1,9 @@
+<div class="auto-create-container"></div>
+<script>
+    $(function(){
+        var config = JSON.parse('<?=json_encode($config)?>');
+        Former.create(config, $(".auto-create-container"), function(){
+            alert('保存成功');
+        });
+    })
+</script>

@@ -30,8 +30,60 @@ return array(
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
                             ),
                             'defaults'    => array(),
-                        ),
+                        )
+                    ],
+
+                ]
+            ],
+            'former' => [
+                'type'          => 'Literal',
+                'options'       => [
+                    'route'    => '/former',
+                    'defaults' => [
+                        '__NAMESPACE__' => 'Test\Controller',
+                        'controller'    => 'Index',
+                        'action'        => 'former'
                     ]
+                ],
+                'may_terminate' => true,
+                'child_routes'  => [
+                    'params' => array(
+                        'type' => 'Wildcard',
+                    ),
+                ]
+            ],
+            'server' => [
+                'type'          => 'Literal',
+                'options'       => [
+                    'route'    => '/server',
+                    'defaults' => [
+                        '__NAMESPACE__' => 'Test\Controller',
+                        'controller'    => 'user',
+                        'action'        => 'test-server'
+                    ]
+                ],
+                'may_terminate' => true,
+                'child_routes'  => [
+                    'params' => array(
+                        'type' => 'Wildcard',
+                    ),
+                ]
+            ],
+            'gm' => [
+                'type'          => 'Literal',
+                'options'       => [
+                    'route'    => '/gm',
+                    'defaults' => [
+                        '__NAMESPACE__' => 'Test\Controller',
+                        'controller'    => 'index',
+                        'action'        => 'gm'
+                    ]
+                ],
+                'may_terminate' => true,
+                'child_routes'  => [
+                    'params' => array(
+                        'type' => 'Wildcard',
+                    ),
                 ]
             ],
             'user' => [
@@ -44,6 +96,11 @@ return array(
                         'action'        => 'index'
                     ]
                 ],
+                'child_routes' => array(
+                    'params' => array(
+                        'type' => 'Wildcard',
+                    ),
+                ),
             ],
             'test-home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
