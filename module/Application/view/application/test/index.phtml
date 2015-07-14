@@ -6,13 +6,8 @@
         $("#file").change(function(){
             if(this.files.length > 0)
             {
-                FileUpload.sendFile(
-                    '',
-                    this.files[0],
-                    {},
-                    function(){
-
-                    }
+                FileUpload.splitSend(
+                    this.files[0]
                 );
             }
         });

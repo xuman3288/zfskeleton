@@ -31,10 +31,10 @@
 </style>*/
 var FileUpload = {
 
-    progress :function(loaded, size){
-        var pp = Math.floor(loaded/size * 100) + "%";
-        $(this.progressBar).width(pp);
-        $(this.progressBar).html(pp);
+    progress :function(per){
+        this.showAll();
+        $(this.progressBar).width(per);
+        $(this.progressBar).html(per);
     },
     showAll : function()
     {
@@ -54,8 +54,9 @@ var FileUpload = {
         }
         // 上传进度中
         xhr.upload.addEventListener("progress", function (e) {
-            me.progress(e.loaded,file.size);
-            console.log(e);
+            var per = Math.floor(e.loaded/file.size * 100) + "%";
+            me.progress(per);
+
         }, false);
         xhr.onreadystatechange = function (e) {
             if (xhr.readyState == 4) {
@@ -73,15 +74,51 @@ var FileUpload = {
         var fd = new FormData();
         fd.append("file", file);
         if (formdata) {
-            for (key in formdata) {
+            for (var key in formdata) {
                 fd.append(key, formdata[key]);
             }
         }
-        this.showAll();
         xhr.send(fd);
 
     },
-    splitSize: 1024 * 100,
+
+    sendPiece: function (url, file, fileInfo, formdata, onSuccess, onError) {
+        var me = this;
+        try {
+            var xhr = new XMLHttpRequest();
+        } catch (e) {
+            var xhr = ActiveXObject("Msxml12.XMLHTTP");
+        }
+        // 上传进度中
+        xhr.upload.addEventListener("progress", function (e) {
+            var per = Math.floor((fileInfo.start + e.loaded)/fileInfo.size * 100) + "%";
+            me.progress(per);
+
+        }, false);
+        xhr.onreadystatechange = function (e) {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    var retText = xhr.responseText;
+                    var ret = JSON.parse(retText);
+                    onSuccess && onSuccess(ret);
+                } else {
+                    onError && onError();
+                }
+            }
+        }
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("X-Request-With", "XMLHttpRequest");
+        var fd = new FormData();
+        fd.append("file", file);
+        if (formdata) {
+            for (var key in formdata) {
+                fd.append(key, formdata[key]);
+            }
+        }
+        xhr.send(fd);
+
+    },
+    splitSize: 1024 * 5000,
     splitSend: function (file) {
         var me = this, size = file.size, name = file.name, type = file.type || "";
         var fileId = (file.lastModifiedDate + "").replace(/\W/g, '') + size + type.replace(/\W/g, '');
@@ -92,9 +129,13 @@ var FileUpload = {
                 start: start,
                 fileId: fileId
             };
-            me.sendFile(
-                'url',
+            me.sendPiece(
+                '',
                 file.slice(start, start + me.splitSize),
+                {
+                    start : start,
+                    size : size
+                },
                 data,
                 function (ret) {
                     if (ret.code == 0) {
@@ -102,14 +143,16 @@ var FileUpload = {
                             //over
                             localStorage.removeItem(fileId)
                         } else {
-                            start = start + this.splitSize;
+                            start = start + me.splitSize;
                             localStorage.setItem(fileId, start + "");
+                            console.log(start);
                             funcSendPiece();
                         }
                     }
                 }
             );
         }
+        funcSendPiece();
     },
     cover :null,
     createCover :function()
