@@ -1,1 +1,33 @@
-Action "index", controller "Index", module "Test".
+<div id="pre" style="width: 500px;height: 500px; background-color: #cccccc">
+
+</div>
+
+<pre class="hidden">
+    At revision 1790.
+    rsync to platform1.0: 192.168.150.105 success !!!
+    rsync to platform1.0: 192.168.150.106 success !!!
+    rsync to platform1.0: 192.168.150.107 success !!!
+    rsync to platform1.0: 192.168.150.108 failed !!!
+    rsync to platform1.0: 192.168.150.109 success !!!
+    rsync to platform1.0: 192.168.150.110 success !!!
+    rsync to platform1.0: 192.168.150.111 success !!!
+</pre>
+
+<script>
+    $(function(){
+        var data = $(".hidden").html();
+        var data_list = data.split("\n");
+        $.each(data_list, function(i,n){
+            if(n.search('success') != -1) {
+                n = '<p style="color: green" >' + n.trim() + '</p>';
+            } else if(n.search('failed') != -1) {
+                n = '<p style="color: red" >' + n.trim() + '</p>';
+            } else {
+                n = '<p>' + n.trim() + '</p>';
+            }
+            $("#pre").append(n);
+        });
+
+    });
+
+</script>

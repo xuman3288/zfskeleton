@@ -3,7 +3,7 @@
     <div id="content">
         <div id="horizontal" style="height: 100%;">
             <div id="left-pane"></div>
-            <div id="right-pane"></div>
+            <div id="right-pane"><h1>GMT</h1></div>
         </div>
     </div>
 
@@ -22,7 +22,7 @@
         $("#horizontal").kendoSplitter({
             panes: [
                 { size: '300px', collapsible: true, resizable: false},
-                { contentUrl: 'http://localhost'}
+                { collapsible: false, resizable: false}
             ]
         });
         $("#left-pane").kendoPanelBar({
@@ -31,7 +31,10 @@
             select: function (e) {
                 e.preventDefault();
                 var $item = $(e.item);
-                //$('#main').load($item.find('a').attr('href'));
+                var url = $item.find('a').attr('href');
+
+                $('#right-pane').load(url);
+
             }
         });
     });

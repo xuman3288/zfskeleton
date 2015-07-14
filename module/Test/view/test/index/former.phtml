@@ -2,7 +2,8 @@
 <script>
     $(function(){
         var config = JSON.parse('<?=json_encode($config)?>');
-        Former.create(config, $(".auto-create-container"), function(){
+        var api = '/former/api/'+'<?=$api?>';
+        Former.create(api, config , $(".auto-create-container"), function(){
             alert('保存成功');
         });
     })

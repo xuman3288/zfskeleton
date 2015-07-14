@@ -240,7 +240,7 @@ class IndexController extends AbstractActionController
         $client = new Client('http://zf2-skeleton.localhost/server/api/' . $api);
         $config = $client->call('formConfig', []);
         //var_dump($config);exit;
-        return new ViewModel(['config' => $config]);
+        return new ViewModel(['config' => $config, 'api' => $api]);
 
     }
 
@@ -248,10 +248,21 @@ class IndexController extends AbstractActionController
     {
         $this->layout('layout/gm');
         $menu = array(
-
+            'gm' => array(
+                'text'     => '管理功能',
+                'index'    => 0,
+                'expanded' => false,
+                'items'    => array(
+                    array(
+                        'text'  => '菜单管理',
+                        'index' => 0,
+                        'url'   => '/former/api/Menus',
+                    ),
+                ),
+            ),
             'wjtx' => array(
                 'text'     => '武极天下',
-                'index'    => 0,
+                'index'    => 1,
                 'expanded' => true,
                 'items'    => array(
                     array(
@@ -278,7 +289,7 @@ class IndexController extends AbstractActionController
             ),
             'sss' => array(
                 'text'     => '黑猫警长',
-                'index'    => 0,
+                'index'    => 2,
                 'expanded' => false,
                 'items'    => array(
                     array(
@@ -305,6 +316,12 @@ class IndexController extends AbstractActionController
             ),
         );
         return new ViewModel(['menu' => array_values($menu)]);
+    }
+
+    public function testHtmlAction()
+    {
+        $this->layout('');
+        return [];
     }
 }
 

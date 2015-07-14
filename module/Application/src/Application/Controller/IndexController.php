@@ -41,10 +41,10 @@ class IndexController extends AbstractActionController
         //var_dump($this->getServiceLocator()->get('Config'));//autoload中的配置
         $now = time();
         $client = new Client();
-        $client->open(Client::SANDBOX_URI, BASEDIR .'\data\5016_dev.pem');
+        $client->open(Client::SANDBOX_URI, BASEDIR .'\data\5010_dev.pem');
         $message = new Message();
         $message->setId($now);
-        $message->setToken('sss');
+        $message->setToken('464610b2e0beaa1c256ca0c03f28e02aedcd06dd159293ade0b139b9d0b5f852');
         //$message->setBadge(0);
         $message->setSound('default');
         $message->setAlert('message');
