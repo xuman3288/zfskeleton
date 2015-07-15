@@ -1,40 +1,19 @@
 /**
  * Created by xuman on 15-7-14.
  */
-/*<div class="cover">
-</div>
-<div class="alert"><div class="progress"><div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0;"></div></div></div>
-<style>
-.cover{
-    position: absolute;
-    top:0px;
-    left:0px;
-    width: 100%;
-    background-color: rgba(111, 111, 111, 0.8);
-    z-index: 10000;
-    display: none;
-    }
-.alert{
-    position: absolute;
-    width: 500px;
-    height: 300px;
-    background-color: rgb(111, 111, 0);
-    top:50%;
-    left:50%;
-    margin-left: -250px;
-    margin-top: -150px;
-    z-index: 10001;
-    padding-top: 30px;
-    display: none;
-
-    }
-</style>*/
 var FileUpload = {
 
     progress :function(per){
-        this.showAll();
-        $(this.progressBar).width(per);
-        $(this.progressBar).html(per);
+        var me = this;
+        me.showAll();
+        $(me.progressBar).width(per + "%");
+        $(me.progressBar).html(per + "%");
+        if(per >= 100)
+        {
+            setTimeout(function(){
+                me.hideAll();
+            },1000);
+        }
     },
     showAll : function()
     {
@@ -54,7 +33,7 @@ var FileUpload = {
         }
         // 上传进度中
         xhr.upload.addEventListener("progress", function (e) {
-            var per = Math.floor(e.loaded/file.size * 100) + "%";
+            var per = Math.floor(e.loaded/file.size * 100);
             me.progress(per);
 
         }, false);
@@ -91,7 +70,7 @@ var FileUpload = {
         }
         // 上传进度中
         xhr.upload.addEventListener("progress", function (e) {
-            var per = Math.floor((fileInfo.start + e.loaded)/fileInfo.size * 100) + "%";
+            var per = Math.floor((fileInfo.start + e.loaded)/fileInfo.size * 100);
             me.progress(per);
 
         }, false);
@@ -118,7 +97,7 @@ var FileUpload = {
         xhr.send(fd);
 
     },
-    splitSize: 1024 * 5000,
+    splitSize: 1024 * 2000,
     splitSend: function (file) {
         var me = this, size = file.size, name = file.name, type = file.type || "";
         var fileId = (file.lastModifiedDate + "").replace(/\W/g, '') + size + type.replace(/\W/g, '');
@@ -145,7 +124,6 @@ var FileUpload = {
                         } else {
                             start = start + me.splitSize;
                             localStorage.setItem(fileId, start + "");
-                            console.log(start);
                             funcSendPiece();
                         }
                     }
