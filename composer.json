@@ -15,6 +15,7 @@
         "facebook/php-sdk-v4" : "4.0.*",
         "fly/gzfextra": "dev-master",
         "fly/kui": "dev-master",
+        "fly/file-upload": "dev-master",
         "phpmailer/phpmailer": "~5.2",
         "bshaffer/oauth2-server-php": "~1.7"
     }

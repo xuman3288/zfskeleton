@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bf515297dada5a54d72cff98748d731b",
+    "hash": "e738b45329e345380c758aefc8783051",
     "packages": [
         {
             "name": "bshaffer/oauth2-server-php",
@@ -102,6 +102,33 @@
                 "sdk"
             ],
             "time": "2015-04-03 20:31:47"
+        },
+        {
+            "name": "fly/file-upload",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xuman3288/phpFileUpload.git",
+                "reference": "80b18f7da0166471117d21a00eb3a111cbec7c83"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xuman3288/phpFileUpload/zipball/80b18f7da0166471117d21a00eb3a111cbec7c83",
+                "reference": "80b18f7da0166471117d21a00eb3a111cbec7c83",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "FileUpload\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "extra for php",
+            "time": "2015-07-16 11:43:49"
         },
         {
             "name": "fly/gzfextra",
@@ -541,7 +568,8 @@
         "zendframework/zftool": 20,
         "zendframework/zendservice-apple-apns": 20,
         "fly/gzfextra": 20,
-        "fly/kui": 20
+        "fly/kui": 20,
+        "fly/file-upload": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
