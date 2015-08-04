@@ -2,8 +2,13 @@
 
 namespace Test\Controller;
 
+use Test\Captche\ImageCaptche;
+use Test\Model\Capt;
+use Test\Model\ContactForm;
+use Zend\Captcha\Image;
 use Zend\Crypt\PublicKey\Rsa;
 use Zend\Crypt\PublicKey\RsaOptions;
+use Zend\Db\Exception\ErrorException;
 use Zend\Json\Server\Client;
 use Zend\Mail\Transport\Sendmail;
 use Zend\Mvc\Controller\AbstractActionController;
@@ -322,6 +327,35 @@ class IndexController extends AbstractActionController
     {
         $this->layout('');
         return [];
+    }
+    public function testFormAction()
+    {
+        $captche = new ImageCaptche(
+            [
+                'name' => 'test',
+                //'wordLen' => '6',
+                'timeout'    => 600,
+                'fonts'   => array('data/font/CooperBlackStd.otf','data/font/BOOKOSB.TTF','data/font/BOOKOSI.TTF')
+            ]
+        );
+        /*$captche->generate();
+        $captche->getImgUrl();
+        $url = $captche->getImgUrl().$captche->getId() . $captche->getSuffix();*/
+        $this->layout('layout/layout');
+        $form = new ContactForm($captche);
+        if($this->request->isPost())
+        {
+            //var_dump($this->request->getPost());
+            $form->setData($this->request->getPost());
+            if($form->isValid())
+            {
+                return $this->redirect()->toRoute('test');
+            }else {
+                /*var_dump($form->getMessages());
+                throw new \ErrorException('invalid post');*/
+            }
+        }
+        return ['form' => $form];
     }
 }
 

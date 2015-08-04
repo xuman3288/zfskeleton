@@ -1,0 +1,142 @@
+<?
+include_once("inc/auth.php");
+include_once("inc/utility_all.php");
+include_once("inc/oraconn.php");
+$conn = ora_conn();
+$sql1 = "select xmbh,xmmc,xmdw from t_yjsb_xmglb where xmzt='1' order by xmbh";
+$rnum1 = odbc_exec($conn, $sql1);
+$i = 1;
+
+while ($ROW = odbc_fetch_row($rnum1)) {
+    $xmbh[$i] = odbc_result($rnum1, "xmbh");
+    $xmmc[$i] = odbc_result($rnum1, "xmmc");
+    $xmdw[$i] = odbc_result($rnum1, "xmdw");
+    $i++;
+}
+$zjl1 = $i;
+
+?>
+<html>
+<head>
+    <title>业绩查询</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <script Language="JavaScript">
+
+    </script>
+</head>
+
+
+<body class="bodycolor" topmargin="5">
+
+<?
+if ($AREA == "all") {
+    $AREA1 = "";
+} else {
+    $AREA1 = " c.area='$AREA' and ";;
+}
+if ($JGDM != "") {
+    $CXTJ1 = " a.wddm='$JGDM' and ";
+} else {
+    $CXTJ1 = "";
+}
+
+
+for ($sbrq = $SDAY;$sbrq <= $EDAY;$sbrq = date("Ymd", strtotime("+1 day", strtotime($sbrq)))){
+
+
+$query4 = "select a.wddm, a.xmsz,b.xmbh from (select distinct a.* from T_YJSB_WDYJB a,T_YJSB_JGGXB c where " . $CXTJ1
+    . $AREA1 . " a.wddm=c.jgdm and a.sbrq='$sbrq' order by a.xmbh) a, t_yjsb_xmglb b where  a.xmbh(+)=b.xmbh order by b.xmbh";
+$rnum4 = odbc_exec($conn, $query4);
+
+
+$sql2 =
+    "select distinct a.jgdm,a.jgmc from T_YJSB_JGGXB a,T_YJSB_WDYJB b where a.jgdm=b.wddm and b.sbrq='$sbrq' order by jgdm;";
+$rnum2 = odbc_exec($conn, $sql2);
+$j = 1;
+while ($ROW = odbc_fetch_row($rnum2)) {
+    $jgdm[$j] = odbc_result($rnum2, "jgdm");
+    $jgmc[$j] = odbc_result($rnum2, "jgmc");
+    $j++;
+}
+$zjl2 = $j;
+
+$query1 = "select count(*) as zjls from T_YJSB_WDYJB a,T_YJSB_JGGXB c where " . $CXTJ1
+    . $AREA1 . " a.wddm=c.jgdm and a.sbrq>='$SDAY' and a.sbrq<='$EDAY'";
+if ($FLAG == 0) {
+    $ZJLS = 0;
+    session_start();
+    $rnum1 = odbc_exec($conn, $query1);
+    if ($ROW = odbc_fetch_row($rnum1)) {
+        $ZJLS = odbc_result($rnum1, "zjls");
+    }
+    $FLAG = 1;
+}
+
+if ($ZJLS == 0) {
+    Message("<br>提示", "没有符合条件的记录");
+    ?>
+    <br>
+    <div align="center">
+        <input type="button" value="返回" class="BigButton" onClick="location='index.php';">
+    </div>
+    <?
+    exit;
+}
+
+?>
+
+<table border="1" width="100%" cellspacing="0" cellpadding="1" class="small">
+
+    <tr class="TableHeader">
+        <td nowrap align="center">日期</td>
+        <td nowrap align="center">机构代码</td>
+        <td nowrap align="center">机构名称</td>
+        <? for ($i = 1; $i < $zjl1; $i++) {
+            ?>
+            <td nowrap align="center"><?= $xmmc[$i] ?>(<?= $xmdw[$i] ?>)</td>
+        <? } ?>
+
+    </tr>
+
+    <tr onmouseover="currentcolor=this.style.backgroundColor;this.style.backgroundColor='#F5B50D'"
+        onmouseout="this.style.backgroundColor=currentcolor" class="<?= $TableLine ?>">
+        <td nowrap align="center"><?= $sbrq ?></td>
+        <? for ($j = 1; $j < $zjl2; $j++) {
+            ?>
+            <td nowrap align="center"><?= $jgdm[$j] ?></td>
+            <td nowrap align="center"><?= $jgmc[$j] ?></td>
+
+        <? } ?>
+
+
+        <?
+
+        while ($ROW = odbc_fetch_row($rnum4)) {
+            $xmsz = odbc_result($rnum4, "xmsz");
+            ?>
+
+            <td nowrap align="center"><?= $xmsz ?></td>
+        <?
+        }
+        ?>
+
+    </tr>
+
+
+
+</table>
+<?php
+}
+?>
+<?
+session_start();
+$_SESSION["SDAY"] = $SDAY;
+$_SESSION["EDAY"] = $EDAY;
+odbc_close($conn);
+?>
+</body>
+<?
+odbc_close($conn);
+?>
+</html>
+

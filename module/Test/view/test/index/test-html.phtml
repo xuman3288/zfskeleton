@@ -1,0 +1,50 @@
+<?php
+$rows = [
+    [1, 2, 3, 4, 5, 6, 6],
+    [12, 12, 12, 3, 4, 5, 43],
+    [12, 12, 12, 3, 4, 5, 43],
+    [12, 12, 12, 3, 4, 5, 43]
+];
+$heads = [
+    'A',
+    'B',
+    'C',
+    'D',
+    'E',
+    'F',
+    'G',
+];
+?>
+<html>
+<head>
+</head>
+<body>
+<table>
+    <tr>
+        <?php
+        foreach ($heads as $head) {
+        ?>
+            <th><?php echo $head; ?></th>
+        <?php
+        }
+        ?>
+    </tr>
+    <?php
+    foreach ($rows as $row) {
+        ?>
+        <tr>
+            <?php
+            foreach ($row as $cell) {
+                ?>
+                <th><?php echo $cell; ?></th>
+            <?php
+            }
+            ?>
+        </tr>
+
+    <?php
+    }
+    ?>
+</table>
+</body>
+</html>

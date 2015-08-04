@@ -1,0 +1,74 @@
+<?php
+
+$title = 'Test Form';
+/** @var Zend\View\Renderer\PhpRenderer $this */
+$this->headTitle($title);
+// within a view script
+$form->prepare();
+//var_dump(get_class($this));
+
+// Assuming the "contact/process" route exists...
+$form->setAttribute('action', '');
+
+// Set the method attribute for the form
+$form->setAttribute('method', 'post');
+
+// Get the form label plugin
+$formLabel = $this->plugin('formLabel');
+?>
+<div class="container">
+    <div class="panel">
+
+
+        <?php
+        // Render the opening tag
+
+        echo $this->form()->openTag($form);
+        ?>
+        <div class="form_element form-group">
+            <?php
+            $name = $form->get('name');
+            $name->setAttribute('class', 'form-control');
+            echo $formLabel->openTag() . $name->getOption('label');
+            echo $this->formInput($name);
+            echo $this->formElementErrors($name);
+            echo $formLabel->closeTag();
+            ?></div>
+
+        <div class="form_element form-group">
+            <?php
+            $subject = $form->get('subject');
+            $subject->setAttribute('class', 'form-control');
+            echo $formLabel->openTag() . $subject->getOption('label');
+            echo $this->formInput($subject);
+            echo $this->formElementErrors($subject);
+            echo $formLabel->closeTag();
+            ?></div>
+
+        <div class="form_element form-group">
+            <?php
+            $message = $form->get('message');
+            $message->setAttribute('class', 'form-control');
+            echo $formLabel->openTag() . $message->getOption('label');
+            echo $this->formTextarea($message);
+            echo $this->formElementErrors($message);
+            echo $formLabel->closeTag();
+            ?></div>
+
+        <div class="form_element form-group">
+            <?php
+            $captcha = $form->get('captcha');
+            $captcha->setAttribute('class','form-control');
+            echo $formLabel->openTag() . $captcha->getOption('label');
+            echo $this->formCaptcha($captcha);
+            echo $this->formElementErrors($captcha);
+            echo $formLabel->closeTag();
+            ?></div>
+
+        <?php echo $this->formElement($form->get('security')) ?>
+        <?php echo $this->formElement($form->get('send')->setAttribute('class', 'btn btn-normal')) ?>
+
+        <?php echo $this->form()->closeTag() ?>
+
+    </div>
+</div>
