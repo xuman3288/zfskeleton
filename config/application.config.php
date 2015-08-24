@@ -9,7 +9,8 @@ return array(
     'modules' => array(
         'Application',
         'Album',
-        'Test'
+        'Test',
+        'Codeacious\OAuth2Provider'
     ),
     'module_listener_options' => array(
         'module_paths' => array(

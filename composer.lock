@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e738b45329e345380c758aefc8783051",
+    "hash": "1ec78ec1b1762b6186b612a0b05c8c30",
     "packages": [
         {
             "name": "bshaffer/oauth2-server-php",
@@ -53,6 +53,52 @@
                 "oauth2"
             ],
             "time": "2015-05-21 20:07:03"
+        },
+        {
+            "name": "codeacious/oauth2-provider",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CodeaciousAU/zf2-oauth2-provider.git",
+                "reference": "eb7f44cb7c17adad95e0bae99d2e27a8d6ca9ea6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CodeaciousAU/zf2-oauth2-provider/zipball/eb7f44cb7c17adad95e0bae99d2e27a8d6ca9ea6",
+                "reference": "eb7f44cb7c17adad95e0bae99d2e27a8d6ca9ea6",
+                "shasum": ""
+            },
+            "require": {
+                "bshaffer/oauth2-server-php": "~1.0",
+                "php": ">=5.4",
+                "zendframework/zend-filter": "~2.0",
+                "zendframework/zend-http": "~2.0",
+                "zendframework/zend-servicemanager": "~2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "suggest": {
+                "zfcampus/zf-mvc-auth": "Use with the included adapter to authenticate requests using access tokens"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-trunk": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Codeacious\\OAuth2Provider\\": "src/",
+                    "CodeaciousTest\\OAuth2Provider\\": "test/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A simple and clean Zend Framework 2 wrapper for the oauth2-server-php library",
+            "time": "2015-04-24 03:03:13"
         },
         {
             "name": "facebook/php-sdk-v4",
@@ -109,12 +155,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/xuman3288/phpFileUpload.git",
-                "reference": "80b18f7da0166471117d21a00eb3a111cbec7c83"
+                "reference": "9babc8b07420a8207a60946251d0b7fc7651ea13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xuman3288/phpFileUpload/zipball/80b18f7da0166471117d21a00eb3a111cbec7c83",
-                "reference": "80b18f7da0166471117d21a00eb3a111cbec7c83",
+                "url": "https://api.github.com/repos/xuman3288/phpFileUpload/zipball/9babc8b07420a8207a60946251d0b7fc7651ea13",
+                "reference": "9babc8b07420a8207a60946251d0b7fc7651ea13",
                 "shasum": ""
             },
             "type": "library",
@@ -128,7 +174,7 @@
                 "MIT"
             ],
             "description": "extra for php",
-            "time": "2015-07-16 11:43:49"
+            "time": "2015-07-17 08:14:51"
         },
         {
             "name": "fly/gzfextra",
@@ -240,6 +286,56 @@
             "time": "2015-05-04 12:37:21"
         },
         {
+            "name": "predis/predis",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nrk/predis.git",
+                "reference": "84060b9034d756b4d79641667d7f9efe1aeb8e04"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "http://packagist.phpcomposer.com/files/nrk/predis/84060b9034d756b4d79641667d7f9efe1aeb8e04.zip",
+                "reference": "84060b9034d756b4d79641667d7f9efe1aeb8e04",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "suggest": {
+                "ext-curl": "Allows access to Webdis when paired with phpiredis",
+                "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Predis\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniele Alessandri",
+                    "email": "suppakilla@gmail.com",
+                    "homepage": "http://clorophilla.net"
+                }
+            ],
+            "description": "Flexible and feature-complete PHP client library for Redis",
+            "homepage": "http://github.com/nrk/predis",
+            "keywords": [
+                "nosql",
+                "predis",
+                "redis"
+            ],
+            "time": "2015-07-30 18:34:15"
+        },
+        {
             "name": "zendframework/zenddiagnostics",
             "version": "v1.0.6",
             "source": {
@@ -303,21 +399,21 @@
         },
         {
             "name": "zendframework/zendframework",
-            "version": "2.4.3",
+            "version": "2.4.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zf2.git",
-                "reference": "eb6275e9227e9ed1995d326087488d3ea25811b5"
+                "reference": "b13b45e0baa609321ca6544abc7615414fcbf073"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/eb6275e9227e9ed1995d326087488d3ea25811b5",
-                "reference": "eb6275e9227e9ed1995d326087488d3ea25811b5",
+                "url": "https://api.github.com/repos/zendframework/zf2/zipball/b13b45e0baa609321ca6544abc7615414fcbf073",
+                "reference": "b13b45e0baa609321ca6544abc7615414fcbf073",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.23",
-                "zendframework/zendxml": "~1.0-dev"
+                "zendframework/zendxml": "^1.0.1"
             },
             "replace": {
                 "zendframework/zend-authentication": "self.version",
@@ -416,7 +512,7 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2015-06-17 19:32:51"
+            "time": "2015-08-11 16:22:28"
         },
         {
             "name": "zendframework/zendservice-apple-apns",
@@ -424,12 +520,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendService_Apple_Apns.git",
-                "reference": "2a2363d9875e5308e7a8b482bc3362aa807eb7aa"
+                "reference": "69444ad59b600a783acdd6cd67e8f0d4dc35f5ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendService_Apple_Apns/zipball/2a2363d9875e5308e7a8b482bc3362aa807eb7aa",
-                "reference": "2a2363d9875e5308e7a8b482bc3362aa807eb7aa",
+                "url": "https://api.github.com/repos/zendframework/ZendService_Apple_Apns/zipball/69444ad59b600a783acdd6cd67e8f0d4dc35f5ae",
+                "reference": "69444ad59b600a783acdd6cd67e8f0d4dc35f5ae",
                 "shasum": ""
             },
             "require": {
@@ -459,28 +555,28 @@
                 "push",
                 "zf2"
             ],
-            "time": "2015-01-20 15:33:09"
+            "time": "2015-07-29 13:33:24"
         },
         {
             "name": "zendframework/zendxml",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendXml.git",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f"
+                "reference": "54edb3875aba5b45f02824f65f311c9fb2743a38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/54edb3875aba5b45f02824f65f311c9fb2743a38",
+                "reference": "54edb3875aba5b45f02824f65f311c9fb2743a38",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "fabpot/php-cs-fixer": "*@dev",
-                "phpunit/phpunit": "~3.7"
+                "phpunit/phpunit": "~3.7",
+                "squizlabs/php_codesniffer": "~1.5"
             },
             "type": "library",
             "extra": {
@@ -490,7 +586,7 @@
             },
             "autoload": {
                 "psr-0": {
-                    "ZendXml": "library/"
+                    "ZendXml\\": "library/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -504,7 +600,7 @@
                 "xml",
                 "zf2"
             ],
-            "time": "2014-03-05 22:25:44"
+            "time": "2015-08-03 14:50:10"
         },
         {
             "name": "zendframework/zftool",
@@ -512,12 +608,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZFTool.git",
-                "reference": "8bab848834bfc48fef2f4b3e874ddd3760fb9e0d"
+                "reference": "cb980c5c6fc139ec45d9c87ad0af1250af691c5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZFTool/zipball/8bab848834bfc48fef2f4b3e874ddd3760fb9e0d",
-                "reference": "8bab848834bfc48fef2f4b3e874ddd3760fb9e0d",
+                "url": "https://api.github.com/repos/zendframework/ZFTool/zipball/cb980c5c6fc139ec45d9c87ad0af1250af691c5c",
+                "reference": "cb980c5c6fc139ec45d9c87ad0af1250af691c5c",
                 "shasum": ""
             },
             "require": {
@@ -528,16 +624,21 @@
                 "zendframework/zend-file": ">=2.2.2",
                 "zendframework/zend-form": ">=2.2.2",
                 "zendframework/zend-http": ">=2.2.2",
+                "zendframework/zend-i18n": ">=2.2.2",
                 "zendframework/zend-loader": ">=2.2.2",
+                "zendframework/zend-log": ">=2.2.2",
                 "zendframework/zend-modulemanager": ">=2.2.2",
                 "zendframework/zend-mvc": ">=2.2.2",
                 "zendframework/zend-serializer": ">=2.2.2",
                 "zendframework/zend-servicemanager": ">=2.2.2",
                 "zendframework/zend-stdlib": ">=2.2.2",
                 "zendframework/zend-text": ">=2.2.2",
-                "zendframework/zend-version": ">=2.2.2",
+                "zendframework/zend-version": ">=2.2.2 ",
                 "zendframework/zend-view": ">=2.2.2",
                 "zendframework/zenddiagnostics": ">=1.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*"
             },
             "bin": [
                 "zf.php"
@@ -558,7 +659,7 @@
                 "tool",
                 "zf2"
             ],
-            "time": "2014-04-22 18:35:37"
+            "time": "2015-08-05 15:12:29"
         }
     ],
     "packages-dev": [],

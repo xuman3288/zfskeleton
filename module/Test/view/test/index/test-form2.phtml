@@ -5,7 +5,6 @@ $title = 'Test Form';
 $this->headTitle($title);
 // within a view script
 $form->prepare();
-//var_dump(get_class($this));
 
 // Assuming the "contact/process" route exists...
 $form->setAttribute('action', '');
@@ -27,31 +26,21 @@ $formLabel = $this->plugin('formLabel');
         ?>
         <div class="form_element form-group">
             <?php
-            $name = $form->get('name');
-            $name->setAttribute('class', 'form-control');
+            $name = $form->get('account');
+            //$name->setAttribute('class', 'form-control');
             echo $formLabel->openTag() . $name->getOption('label');
             echo $this->formInput($name);
             echo $this->formElementErrors($name);
             echo $formLabel->closeTag();
-            ?></div>
+            ?>
+        </div>
 
         <div class="form_element form-group">
             <?php
-            $subject = $form->get('subject');
-            $subject->setAttribute('class', 'form-control');
+            $subject = $form->get('password');
             echo $formLabel->openTag() . $subject->getOption('label');
-            echo $this->formInput($subject);
+            echo $this->formPassword($subject);
             echo $this->formElementErrors($subject);
-            echo $formLabel->closeTag();
-            ?></div>
-
-        <div class="form_element form-group">
-            <?php
-            $message = $form->get('message');
-            $message->setAttribute('class', 'form-control');
-            echo $formLabel->openTag() . $message->getOption('label');
-            echo $this->formTextarea($message);
-            echo $this->formElementErrors($message);
             echo $formLabel->closeTag();
             ?>
         </div>
@@ -59,18 +48,36 @@ $formLabel = $this->plugin('formLabel');
         <div class="form_element form-group">
             <?php
             $captcha = $form->get('captcha');
-            $captcha->setAttribute('class','form-control');
             echo $formLabel->openTag() . $captcha->getOption('label');
-            echo $this->formCaptcha($captcha);
-            echo $this->formElementErrors($captcha);
             echo $formLabel->closeTag();
+            ?>
+            <br>
+            <?php
+            /** @var \Zend\Form\View\Helper\Captcha\Image $helper */
+            $helper = $this->plugin($captcha->getCaptcha()->getHelperName());
+
+            $helper->setCaptchaPosition(\Zend\Form\View\Helper\Captcha\AbstractWord::CAPTCHA_PREPEND);
+            //$helper->setSeparator('<span class="input-group-addon">');
+            echo $helper($captcha);
+            //echo $this->formCaptcha();
+            ?>
+
+            <?php
+            echo $this->formElementErrors($captcha);
+
             ?>
         </div>
 
         <?php echo $this->formElement($form->get('security')) ?>
-        <?php echo $this->formElement($form->get('send')->setAttribute('class', 'btn btn-normal')) ?>
+        <?php echo $this->formElement($form->get('send')) ?>
 
         <?php echo $this->form()->closeTag() ?>
 
     </div>
 </div>
+<style>
+#login-captcha{
+    display: inline;
+    width: 100px;
+}
+</style>

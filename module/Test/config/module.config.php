@@ -3,7 +3,8 @@ return array(
     'controllers'     => [
         'invokables' => [
             'Test\Controller\Index' => 'Test\Controller\IndexController',
-            'Test\Controller\User'  => 'Test\Controller\UserController'
+            'Test\Controller\User'  => 'Test\Controller\UserController',
+            'Test\Controller\Oauth2'  => 'Test\Controller\Oauth2Controller'
 
         ]
     ],

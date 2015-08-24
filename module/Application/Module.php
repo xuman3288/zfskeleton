@@ -19,6 +19,10 @@ class Module
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+        $sm = $e->getApplication()->getServiceManager();
+        foreach($sm->get('config')['ini_set'] as $key => $val) {
+            $val !== null && ini_set($key,$val);
+        }
     }
 
     public function getConfig()

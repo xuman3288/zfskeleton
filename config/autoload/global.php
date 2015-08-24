@@ -11,6 +11,8 @@
  * file.
  */
 
+use OAuth2\GrantType\AuthorizationCode;
+
 return array(
     /*'db' => array(
         'driver'         => 'pdo',
@@ -35,7 +37,6 @@ return array(
                 'password'       => '111111'
             )
         )
-
     ),
     'caches'          => array(
         'Cache\FileTest' => array(
@@ -48,7 +49,14 @@ return array(
     ),
     'service_manager' => array(
         'factories'          => array(
-            //'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory'
+            //'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
+            'MyOAuth2Provider' => 'Codeacious\OAuth2Provider\ProviderFactory',
+            'storage' => function(){
+                    return new OAuth2\Storage\Redis(new \Predis\Client());
+                },
+            'scope'  => function($sm) {
+                    return new \OAuth2\Scope($sm->get('storage'));
+                }
         ),
         'aliases'            => array(
             //'db' => 'Zend\Db\Adapter\Adapter'
@@ -59,5 +67,43 @@ return array(
             'Zend\Db\Adapter\AdapterAbstractServiceFactory'
         )
     ),
-
+    'oauth2provider'=>[
+        'storage' => [
+            /*[
+                'class' => 'OAuth2\Storage\Pdo',
+                'options' => [
+                    'dsn' => 'mysql:host=localhost;dbname=testdb',
+                    'username' => 'user',
+                    'password' => 'secret',
+                ],
+            ],*/
+            /*[
+                'class' => 'OAuth2\Storage\Redis',
+                'options' => new \Predis\Client(),
+            ],*/
+            'storage'
+        ],
+        'options' => [
+            //'allow_implicit' => true,
+            'auth_code_lifetime' => 60,
+            'access_lifetime' => 3600,
+            'refresh_token_lifetime' => 1209600,
+        ],
+        /*'response_types' =>
+        [
+            //'code' =>
+        ],*/
+        'grant_types' => [
+            [
+                'class' => AuthorizationCode::class,
+                'storage' => 'storage'
+            ]
+        ],
+        //'scope_util' => 'scope'
+    ],
+    'ini_set' => array(
+        'session.save_handler' => 'memcache',
+        'session.save_path'    => 'tcp://127.0.0.1:11211'
+    )
 );
+

@@ -41,10 +41,10 @@ class IndexController extends AbstractActionController
         //var_dump($this->getServiceLocator()->get('Config'));//autoload中的配置
         $now = time();
         $client = new Client();
-        $client->open(Client::SANDBOX_URI, BASEDIR .'\data\5010_dev.pem');
+        $client->open(Client::SANDBOX_URI, BASEDIR .'\data\5015_dev.pem');
         $message = new Message();
         $message->setId($now);
-        $message->setToken('464610b2e0beaa1c256ca0c03f28e02aedcd06dd159293ade0b139b9d0b5f852');
+        $message->setToken('4f98a479aa3a39ce32c89f8084352f133990d7b09b9f0177adaf6645050e51e4');
         //$message->setBadge(0);
         $message->setSound('default');
         $message->setAlert('message');
@@ -122,10 +122,10 @@ class IndexController extends AbstractActionController
 
 
         $client = new FClient();
-        $client->open(FClient::SANDBOX_URI, BASEDIR .'\data\cert_dis.pem');
+        $client->open(FClient::SANDBOX_URI, BASEDIR .'\data\5012_dev.pem');
         $responses = $client->feedback();
         $client->close();
-
+        var_dump(count($responses));
         foreach ($responses as $response) {
 
             echo $response->getTime() . ': ' . $response->getToken();

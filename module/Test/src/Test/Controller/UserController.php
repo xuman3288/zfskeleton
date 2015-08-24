@@ -96,18 +96,20 @@ class UserController extends AbstractActionController
         $smtpOption = new SmtpOptions(
             array(
                 'name'              => 'ztgame.com',
-                'host'              => 'smtp.126.com',
+                'host'              => 'smtp.gmail.com',
+                'port'              => 587,
                 'connection_class'  => 'login',
                 'connection_config' => array(
-                    'username' => 'caigen3288@126.com',
-                    'password' => 'sgllgizofvxihool',
+                    'username' => 'rrrrr@gmail.com',
+                    'password' => '',
+                    'ssl'      => 'tls'
                 ),
             ));
         $smtp       = new Smtp($smtpOption);
         $message    = new Message();
-        $message->setHeaders(Headers::fromString('Content-Type:text/html'))
-            ->addTo('xuman3288@gmail.com', 'Fly126')
-            ->addFrom('caigen3288@126.com', 'caigen')
+        $message->setHeaders(Headers::fromString('Content-Type:text/html;charset=utf-8'))
+            ->addTo('xuman3288@126.com', 'Fly126')
+            ->addFrom('xuman3288@gmail.com', 'caigen')
             ->setSubject('Giant Mobile')
             ->setBody('hi,this is a mail with validate link:url');
         $smtp->send($message);
